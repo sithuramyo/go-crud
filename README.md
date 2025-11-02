@@ -60,6 +60,14 @@ go build -o go-crud.exe .
 go run .
 ```
 
+If your using CompileDaemon
+
+```powershell
+
+CompileDaemon -command="./go-crud"
+
+```
+
 The server will start on the default Gin port (8080). You can change this in `main.go` by passing an address to `r.Run(":8000")`.
 
 ## API Endpoints

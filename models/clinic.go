@@ -12,9 +12,9 @@ type Clinic struct {
 	Name          string     `json:"name"`
 	Address       string     `json:"address"`
 	ContactNumber string     `json:"contactNumber"`
+	Schedules     []Schedule `gorm:"foreignKey:ClinicID;references:ID" json:"schedules"`
 	CreatedAt     time.Time  `json:"createdAt"`
 	UpdatedAt     time.Time  `json:"updatedAt"`
-	DeletedAt     *time.Time `json:"deletedAt,omitempty"`
 }
 
 func (c *Clinic) BeforeCreate(tx *gorm.DB) (err error) {

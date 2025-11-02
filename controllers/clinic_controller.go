@@ -8,21 +8,21 @@ import (
 )
 
 func GetClinics(c *gin.Context) {
-	services.GenericList[models.Clinic](c, initializers.DB, []string{"name", "address"})
+	services.List[models.Clinic](c, initializers.DB, []string{"name", "address"})
 }
 
 func GetClinic(c *gin.Context) {
-	services.GenericGet[models.Clinic](c, initializers.DB)
+	services.Get[models.Clinic](c, initializers.DB)
 }
 
 func CreateClinic(c *gin.Context) {
-	services.GenericCreate[models.Clinic](c, initializers.DB)
+	services.Create[models.Clinic](c, initializers.DB)
 }
 
 func UpdateClinic(c *gin.Context) {
-	services.GenericUpdate[models.Clinic](c, initializers.DB)
+	services.Update[models.Clinic](c, initializers.DB)
 }
 
 func DeleteClinic(c *gin.Context) {
-	services.GenericDelete[models.Clinic](c, initializers.DB)
+	services.Delete[models.Clinic](c, initializers.DB)
 }

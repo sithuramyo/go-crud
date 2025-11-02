@@ -34,13 +34,18 @@ func ParsePagination(c *gin.Context) PaginationQuery {
 	}
 }
 
-func GenericList[T any](c *gin.Context, db *gorm.DB, searchFields []string) {
+func List[T any](c *gin.Context, db *gorm.DB, searchFields []string, preloads ...string) {
 	var items []T
 	pq := ParsePagination(c)
 
 	offset := (pq.Page - 1) * pq.Limit
 
-	query := db.Model(new(T))
+	var model T
+	query := db.Model(&model)
+
+	for _, p := range preloads {
+		query = query.Preload(p)
+	}
 
 	if pq.Search != "" && len(searchFields) > 0 {
 		cond := ""
@@ -72,7 +77,7 @@ func GenericList[T any](c *gin.Context, db *gorm.DB, searchFields []string) {
 	})
 }
 
-func GenericGet[T any](c *gin.Context, db *gorm.DB) {
+func Get[T any](c *gin.Context, db *gorm.DB) {
 	id := c.Param("id")
 	var item T
 	if err := db.First(&item, "id = ?", id).Error; err != nil {
@@ -82,7 +87,7 @@ func GenericGet[T any](c *gin.Context, db *gorm.DB) {
 	c.JSON(http.StatusOK, item)
 }
 
-func GenericCreate[T any](c *gin.Context, db *gorm.DB) {
+func Create[T any](c *gin.Context, db *gorm.DB) {
 	var item T
 	if err := c.ShouldBindJSON(&item); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -95,7 +100,7 @@ func GenericCreate[T any](c *gin.Context, db *gorm.DB) {
 	c.JSON(http.StatusCreated, item)
 }
 
-func GenericUpdate[T any](c *gin.Context, db *gorm.DB) {
+func Update[T any](c *gin.Context, db *gorm.DB) {
 	id := c.Param("id")
 	var item T
 	if err := db.First(&item, "id = ?", id).Error; err != nil {
@@ -113,7 +118,7 @@ func GenericUpdate[T any](c *gin.Context, db *gorm.DB) {
 	c.JSON(http.StatusOK, item)
 }
 
-func GenericDelete[T any](c *gin.Context, db *gorm.DB) {
+func Delete[T any](c *gin.Context, db *gorm.DB) {
 	id := c.Param("id")
 	var item T
 	if err := db.Delete(&item, "id = ?", id).Error; err != nil {
