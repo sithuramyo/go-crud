@@ -1,0 +1,49 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Vendor directory (if you use Go modules, can skip this)
+vendor/
+
+# Go build artifacts
+bin/
+_build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDEs / editors
+.vscode/
+.idea/
+*.iml
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+
+# Environment variables
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Swagger generated docs (optional)
+docs/
+
+# Node modules (if you use frontend)
+node_modules/
+
+# Go modules checksum / cache
+go.sum
+go.mod.cache
+
+# Temporary files
+*.tmp
+*.bak
