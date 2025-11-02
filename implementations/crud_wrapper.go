@@ -1,4 +1,4 @@
-package services
+package implementations
 
 import (
 	"net/http"
@@ -71,7 +71,7 @@ func List[T any](c *gin.Context, db *gorm.DB, searchFields []string, preloads ..
 	c.JSON(http.StatusOK, gin.H{
 		"data":       items,
 		"page":       pq.Page,
-		"limit":      pq.Limit,
+		"pageSize":   pq.Limit,
 		"total":      total,
 		"totalPages": (total + int64(pq.Limit) - 1) / int64(pq.Limit),
 	})

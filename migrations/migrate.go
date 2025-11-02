@@ -11,7 +11,11 @@ func init() {
 }
 
 func main() {
-	initializers.DB.AutoMigrate(
+	db, err := initializers.ConnectToDB()
+	if err != nil {
+		panic("Failed to connect to database")
+	}
+	db.AutoMigrate(
 		&models.Clinic{},
 		&models.Schedule{},
 	)
